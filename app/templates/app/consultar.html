@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar pedido</title>
+</head>
+<body>
+    <h1>Consultar pedido</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="codigo_pedido">Código de pedido:</label>
+        <input type="text" name="codigo_pedido" id="codigo_pedido" required>
+        <button type="submit">Buscar</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del pedido</title>
+</head>
+<body>
+    <h1>Pedido: {{ pedido.codigo_pedido }}</h1>
+    <p>Estado: {{ pedido.estado }}</p>
+    <p>Fecha: {{ pedido.fecha }}</p>
+    <p>Usuario: {{ pedido.usuario }}</p>
+    <p>Repartidor: {{ pedido.repartidor }}</p>
+
+    <h2>Productos</h2>
+    <table>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+        </tr>
+        {% for detalle in detalles %}
+        <tr>
+            <td>{{ detalle.producto.nombre }}</td>
+            <td>{{ detalle.cantidad }}</td>
+            <td>{{ detalle.precio_unitario }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'consultar' %}">Volver a consultar</a>
+</body>
+</html>
