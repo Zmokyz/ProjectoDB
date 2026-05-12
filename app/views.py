@@ -6,14 +6,14 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-@login_required
+
 def home(request):
     if hasattr(request.user, 'perfilcliente'):
         return redirect('panel_cliente')
     elif hasattr(request.user, 'perfiltrabajador'):
         return redirect('panel_trabajador')
     else:
-        return redirect('login')
+        return render(request, 'app/home.html')
 
 def consultar_form(request):
     if request.method == 'POST':
