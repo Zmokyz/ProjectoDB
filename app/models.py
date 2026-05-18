@@ -1,6 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Cliente(models.Model):
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    direccion = models.CharField(max_length=200, blank=True)
+    telefono = models.CharField(max_length=10, blank=True)
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
+
 
 class Repartidor(models.Model):
     nombre = models.CharField(max_length=100)
@@ -32,7 +46,7 @@ class Pedido(models.Model):
         ('cancelado', 'Cancelado'),
     ]
 
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     repartidor = models.ForeignKey(Repartidor, on_delete=models.SET_NULL,
                                    null=True, blank=True)
     fecha = models.DateTimeField(auto_now_add=True)
@@ -51,15 +65,8 @@ class DetallePedido(models.Model):
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.pedido.codigo_pedido} - {self.producto.nombre}"
+        return f"{self.pedido.codigo_pedido}"
     
-class PerfilCliente(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    direccion = models.CharField(max_length=200, blank=True)
-
-    def __str__(self):
-        return f"Cliente: {self.usuario.username}"
-
 
 class PerfilTrabajador(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
